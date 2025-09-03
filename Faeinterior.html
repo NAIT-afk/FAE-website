@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAE Interior Design Studio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: #fff;
+      color: #111;
+      overflow-x: hidden;
+    }
+    /* Enhanced Header Styles */
+    header {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+      padding: 15px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: all 0.4s ease;
+    }
+    header.scrolled {
+      padding: 10px 50px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo-icon {
+      font-size: 28px;
+      color: #e75480;
+      margin-right: 12px;
+    }
+    header h1 {
+      color: #e75480;
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      position: relative;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+    header h1::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #e75480, #ff9ebb);
+      border-radius: 2px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 16px;
+      transition: 0.3s;
+      position: relative;
+      padding: 5px 0;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #e75480;
+      transition: width 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #e75480;
+    }
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+    .header-cta {
+      padding: 10px 25px;
+      background: #e75480;
+      border: none;
+      border-radius: 25px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(231, 84, 128, 0.3);
+    }
+    .header-cta:hover {
+      background: #d43c6f;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(231, 84, 128, 0.4);
+    }
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #e75480;
+      margin: 2px 0;
+      transition: 0.3s;
+      border-radius: 3px;
+    }
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      padding: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .hero-content {
+      max-width: 800px;
+    }
+    .hero h2 {
+      font-size: 56px;
+      margin-bottom: 20px;
+      animation: slideDown 2s ease;
+      font-weight: 700;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    }
+    .hero p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      animation: fadeIn 3s ease;
+      line-height: 1.6;
+    }
+    .hero button {
+      padding: 14px 35px;
+      background: #e75480;
+      border: none;
+      border-radius: 30px;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .hero button:hover {
+      background: #111;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    /* Other sections */
+    .section {
+      padding: 100px 50px;
+      text-align: center;
+    }
+    .section h3 {
+      font-size: 36px;
+      color: #111;
+      margin-bottom: 40px;
+      position: relative;
+      font-weight: 700;
+    }
+    .section h3::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: #e75480;
+      margin: 15px auto;
+      border-radius: 2px;
+    }
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+      animation: fadeUp 2s ease;
+      cursor: pointer;
+    }
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+    .service-card h4 {
+      color: #e75480;
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+    .about {
+      background: #fdf2f7;
+      border-radius: 15px;
+      padding: 60px;
+      line-height: 1.8;
+      animation: fadeUp 2s ease;
+      font-size: 18px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+      animation: fadeUp 2s ease;
+    }
+    .gallery img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 15px;
+      transition: transform 0.4s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    .contact {
+      background: #f9f9f9;
+      padding: 60px 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+    .contact input, .contact textarea, .contact button {
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .contact button {
+      background: #e75480;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 600;
+    }
+    .contact button:hover {
+      background: #111;
+    }
+    footer {
+      background: #111;
+      color: #fff;
+      padding: 50px 20px 20px;
+      margin-top: 50px;
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .footer-column h3 {
+      color: #e75480;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    .footer-column h4 {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    .footer-column p, .footer-column li {
+      color: #ccc;
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+    .footer-column ul {
+      list-style: none;
+    }
+    .footer-column a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-column a:hover {
+      color: #e75480;
+    }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .social-icon {
+      font-size: 24px;
+      margin-left: 15px;
+    }
+
+    /* Service Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 40px auto;
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 900px;
+      box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+      position: relative;
+      animation: modalFadeIn 0.5s;
+    }
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 28px;
+      color: #aaa;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .close-modal:hover {
+      color: #e75480;
+    }
+    .service-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .service-header h2 {
+      color: #e75480;
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+    .service-header p {
+      color: #666;
+      font-size: 18px;
+    }
+    .service-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    .service-image {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    .service-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .service-image img:hover {
+      transform: scale(1.05);
+    }
+    .service-info h3 {
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+    .service-info p {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .service-features {
+      background-color: #fdf2f7;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+    }
+    .service-features h3 {
+      color: #e75480;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .feature {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    .feature i {
+      font-size: 36px;
+      color: #e75480;
+      margin-bottom: 15px;
+    }
+    .feature h4 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .cta-section {
+      text-align: center;
+      padding: 30px;
+      background: linear-gradient(135deg, #e75480, #ff9ebb);
+      border-radius: 15px;
+      color: white;
+    }
+    .cta-section h3 {
+      margin-bottom: 20px;
+      color: white;
+    }
+    .cta-section button {
+      padding: 12px 30px;
+      background: #fff;
+      border: none;
+      border-radius: 25px;
+      color: #e75480;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .cta-section button:hover {
+      background: #111;
+      color: #fff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      header {
+        padding: 15px 30px;
+      }
+      header h1 {
+        font-size: 28px;
+      }
+      nav ul {
+        gap: 20px;
+      }
+      .service-details {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      header {
+        padding: 12px 20px;
+      }
+      header h1 {
+        font-size: 24px;
+      }
+      nav ul {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        background: white;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        padding: 20px 0;
+        transition: 0.3s;
+      }
+      nav ul.active {
+        left: 0;
+      }
+      nav ul li {
+        width: 100%;
+        text-align: center;
+      }
+      nav ul li a {
+        display: block;
+        padding: 15px;
+      }
+      .menu-toggle {
+        display: flex;
+      }
+      .header-cta {
+        display: none;
+      }
+      .hero h2 {
+        font-size: 40px;
+      }
+      .hero p {
+        font-size: 18px;
+      }
+      .section {
+        padding: 80px 20px;
+      }
+      .about {
+        padding: 30px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+      }
+      .modal-content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="logo">
+      <div class="logo-icon"><i class="fas fa-couch"></i></div>
+      <h1>FAE INTERIORS</h1>
+    </div>
+    <nav>
+      <ul id="nav-menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <button class="header-cta">Get Quote</button>
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h2>Transforming Spaces with Elegance</h2>
+      <p>Bringing your vision to life through modern, stylish, and personalized interior design solutions.</p>
+      <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Get in Touch</button>
+    </div>
+  </section>
+
+  <section class="section about" id="about">
+    <h3>About Us</h3>
+    <p>At <strong>FAE Interior Design Studio</strong>, we believe every space tells a story. Our goal is to bring beauty, balance, and creativity into every corner, ensuring that your interiors not only look stunning but also feel welcoming and functional. We blend modern trends with timeless aesthetics, customizing each project to reflect your personality and lifestyle. From concept to final touch, our passion for design drives us to craft environments that inspire and delight.</p>
+  </section>
+
+  <section class="section" id="services">
+    <h3>Our Services</h3>
+    <div class="services">
+      <div class="service-card" onclick="openServiceModal('space-planning')">
+        <h4>Space Planning</h4>
+        <p>Maximize your space with smart, efficient, and aesthetic layouts.</p>
+      </div>
+      <div class="service-card" onclick="openServiceModal('interior-styling')">
+        <h4>Interior Styling</h4>
+        <p>Create cohesive and visually appealing interiors with perfect styling.</p>
+      </div>
+      <div class="service-card" onclick="openServiceModal('lighting-design')">
+        <h4>Lighting Design</h4>
+        <p>Illuminate your spaces with carefully planned lighting solutions.</p>
+      </div>
+      <div class="service-card" onclick="openServiceModal('custom-furniture')">
+        <h4>Custom Furniture</h4>
+        <p>Unique furniture pieces tailored to match your interior style and personality.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery">
+    <h3>Gallery</h3>
+    <div class="gallery">
+      <img src="C:\Users\Administrator\OneDrive\Pictures\Screenshots\Screenshot 2025-08-26 155744.png" alt="Interior design 1">
+      <img src="C:\Users\Administrator\OneDrive\Pictures\Screenshots\bright interior desi3.png" alt="Interior design 2">
+      <img src="C:\Users\Administrator\OneDrive\Pictures\Screenshots\interior design stud2.png" alt="Interior design 3">
+      <img src="C:\Users\Administrator\OneDrive\Pictures\Screenshots\Screenshot 2025-08-26 162532.png" alt="Interior design 4">
+      <img src="C:\Users\Administrator\OneDrive\Pictures\Screenshots\Screenshot 2025-08-26 155756.png"alt="Interior design 5">
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h3>Contact Us</h3>
+    <div class="contact">
+      <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>FAE INTERIORS</h3>
+        <p>Creating beautiful spaces that inspire and elevate your everyday life.</p>
+      </div>
+      <div class="footer-column">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="openServiceModal('space-planning')">Space Planning</a></li>
+          <li><a href="javascript:void(0)" onclick="openServiceModal('interior-styling')">Interior Styling</a></li>
+          <li><a href="javascript:void(0)" onclick="openServiceModal('lighting-design')">Lighting Design</a></li>
+          <li><a href="javascript:void(0)" onclick="openServiceModal('custom-furniture')">Custom Furniture</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#Our Services">Services</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#ContactUs">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Contact</h4>
+        <p>fenetalemeshet@gmail.com</p>   
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 FAE Interiors. All rights reserved.</p>
+      <div>
+        <a href="https://www.instagram.com/faeinteriors_" target="_blank" class="social-icon">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Service Modals -->
+  <div id="space-planning-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('space-planning-modal')">&times;</span>
+      <div class="service-header">
+        <h2>Space Planning</h2>
+        <p>Optimizing your space for functionality and aesthetics</p>
+      </div>
+      <div class="service-details">
+        <div class="service-image">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7" alt="Space Planning">
+        </div>
+        <div class="service-info">
+          <h3>Smart Layout Solutions</h3>
+          <p>Our space planning service focuses on creating efficient, functional, and beautiful layouts tailored to your specific needs. We analyze traffic flow, furniture placement, and spatial relationships to maximize both form and function.</p>
+          <p>Whether you're working with a compact apartment or a spacious home, our expertise in space planning ensures every square foot is utilized effectively while maintaining aesthetic appeal.</p>
+        </div>
+      </div>
+      <div class="service-features">
+        <h3>Our Space Planning Approach</h3>
+        <div class="features-grid">
+          <div class="feature">
+            <i class="fas fa-ruler-combined"></i>
+            <h4>Precise Measurements</h4>
+            <p>Detailed analysis of your space dimensions</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-route"></i>
+            <h4>Flow Optimization</h4>
+            <p>Creating natural movement patterns</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-object-group"></i>
+            <h4>Zoning</h4>
+            <p>Defining areas for different activities</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-lightbulb"></i>
+            <h4>Smart Solutions</h4>
+            <p>Innovative ideas for challenging spaces</p>
+          </div>
+        </div>
+      </div>
+      <div class="cta-section">
+        <h3>Ready to optimize your space?</h3>
+        <button onclick="closeModal('space-planning-modal'); document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Get in Touch</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="interior-styling-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('interior-styling-modal')">&times;</span>
+      <div class="service-header">
+        <h2>Interior Styling</h2>
+        <p>Creating cohesive and visually appealing interiors</p>
+      </div>
+      <div class="service-details">
+        <div class="service-image">
+          <img src="https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a" alt="Interior Styling">
+        </div>
+        <div class="service-info">
+          <h3>Elevate Your Space</h3>
+          <p>Our interior styling service focuses on selecting the perfect color palettes, textures, accessories, and decorative elements to complete your space. We pay attention to every detail to create a harmonious and inviting environment.</p>
+          <p>From selecting artwork to choosing cushions and throws, our styling expertise adds the finishing touches that transform a house into a home.</p>
+        </div>
+      </div>
+      <div class="service-features">
+        <h3>Our Styling Services</h3>
+        <div class="features-grid">
+          <div class="feature">
+            <i class="fas fa-palette"></i>
+            <h4>Color Consulting</h4>
+            <p>Perfect color schemes for your space</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-couch"></i>
+            <h4>Accessorizing</h4>
+            <p>Selecting the perfect decorative elements</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-layer-group"></i>
+            <h4>Texture Layering</h4>
+            <p>Creating depth through material selection</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-paint-roller"></i>
+            <h4>Finishing Touches</h4>
+            <p>Complete styling for a polished look</p>
+          </div>
+        </div>
+      </div>
+      <div class="cta-section">
+        <h3>Ready to style your interior?</h3>
+        <button onclick="closeModal('interior-styling-modal'); document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Get in Touch</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="lighting-design-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('lighting-design-modal')">&times;</span>
+      <div class="service-header">
+        <h2>Lighting Design</h2>
+        <p>Illuminating your spaces with carefully planned solutions</p>
+      </div>
+      <div class="service-details">
+        <div class="service-image">
+          <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f" alt="Lighting Design">
+        </div>
+        <div class="service-info">
+          <h3>Lighting Mastery</h3>
+          <p>Our lighting design service focuses on creating the perfect ambiance through strategic placement of light sources. We consider natural light, artificial lighting, and how light interacts with colors and textures in your space.</p>
+          <p>From functional task lighting to mood-setting ambient lights, we design lighting schemes that enhance both the functionality and atmosphere of your interiors.</p>
+        </div>
+      </div>
+      <div class="service-features">
+        <h3>Our Lighting Solutions</h3>
+        <div class="features-grid">
+          <div class="feature">
+            <i class="fas fa-sun"></i>
+            <h4>Ambient Lighting</h4>
+            <p>Creating overall illumination for your space</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-tasks"></i>
+            <h4>Task Lighting</h4>
+            <p>Focused light for specific activities</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-gem"></i>
+            <h4>Accent Lighting</h4>
+            <p>Highlighting architectural features and artwork</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-magic"></i>
+            <h4>Smart Systems</h4>
+            <p>Automated lighting control solutions</p>
+          </div>
+        </div>
+      </div>
+      <div class="cta-section">
+        <h3>Ready to illuminate your space?</h3>
+        <button onclick="closeModal('lighting-design-modal'); document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Get in Touch</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="custom-furniture-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal('custom-furniture-modal')">&times;</span>
+      <div class="service-header">
+        <h2>Custom Furniture</h2>
+        <p>Unique pieces tailored to your style and space</p>
+      </div>
+      <div class="service-details">
+        <div class="service-image">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc" alt="Custom Furniture">
+        </div>
+        <div class="service-info">
+          <h3>Bespoke Furniture Design</h3>
+          <p>Our custom furniture service creates one-of-a-kind pieces designed specifically for your space and needs. We work with skilled craftsmen to bring your vision to life with attention to detail and quality materials.</p>
+          <p>From custom-built storage solutions to statement pieces that become the focal point of your room, we create furniture that perfectly fits both your space and your lifestyle.</p>
+        </div>
+      </div>
+      <div class="service-features">
+        <h3>Our Furniture Services</h3>
+        <div class="features-grid">
+          <div class="feature">
+            <i class="fas fa-pencil-ruler"></i>
+            <h4>Custom Design</h4>
+            <p>Furniture designed specifically for you</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-tree"></i>
+            <h4>Quality Materials</h4>
+            <p>Selection of premium woods and fabrics</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-ruler"></i>
+            <h4>Perfect Fit</h4>
+            <p>Pieces designed for your exact space</p>
+          </div>
+          <div class="feature">
+            <i class="fas fa-palette"></i>
+            <h4>Finish Options</h4>
+            <p>Custom stains, paints, and upholstery</p>
+          </div>
+        </div>
+      </div>
+      <div class="cta-section">
+        <h3>Ready for custom furniture?</h3>
+        <button onclick="closeModal('custom-furniture-modal'); document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Get in Touch</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+    
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    menuToggle.addEventListener('click', function() {
+      navMenu.classList.toggle('active');
+    });
+    
+    // Close menu when clicking on a link
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        navMenu.classList.remove('active');
+      });
+    });
+
+    // Service modal functions
+    function openServiceModal(service) {
+      document.getElementById(service + '-modal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Close modal when clicking outside of it
+    window.addEventListener('click', function(event) {
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(modal => {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
